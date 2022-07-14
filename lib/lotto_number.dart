@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class LottoNumber extends StatefulWidget {
@@ -10,10 +9,9 @@ class LottoNumber extends StatefulWidget {
 }
 
 class _LottoNumberState extends State<LottoNumber> {
-  var rnd = Random();
   List<int> lottoNumber = <int>[];
-  String waiting = '두구두구';
   bool isLoading = false;
+  String waiting = '두구두구';
   String imageUrl = 'https://img.extmovie.com/files/attach/images/135/723/810/078/6aed427bb7947ecefebab48d74483801.gif';
 
   @override
@@ -46,18 +44,18 @@ class _LottoNumberState extends State<LottoNumber> {
                   const CircularProgressIndicator()
                 else
                   Text('$lottoNumber', style: const TextStyle(fontSize: 20)),
-                  const SizedBox(height: 20),
-                  Text(waiting, style: const TextStyle(fontSize: 20)),
-                  const SizedBox(height: 20),
-                  Image.network(imageUrl, width: 300, height: 150)
+                const SizedBox(height: 20),
+                Text(waiting, style: const TextStyle(fontSize: 20)),
+                const SizedBox(height: 20),
+                Image.network(imageUrl, width: 300, height: 150)
               ],
             ),
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: ElevatedButton(
                 onPressed: () {
-                  showLottoNumber();
                   showLoading();
+                  showLottoNumber();
                 },
                 style: ElevatedButton.styleFrom(primary: Colors.green),
                 child: const Text('행운의 번호 추첨', style: TextStyle(fontSize: 16)),
@@ -69,7 +67,7 @@ class _LottoNumberState extends State<LottoNumber> {
     );
   }
 
-  void showLoading() async {
+  Future showLoading() async {
     setState(() {
       isLoading = true;
       waiting = '두구두구';
@@ -82,9 +80,9 @@ class _LottoNumberState extends State<LottoNumber> {
     setState(() {
       isLoading = false;
       lottoNumber.clear();
-      var rng = Random();
+      var random = Random();
       for (var i = 0; i < 6; i++) {
-        lottoNumber.add(rng.nextInt(45));
+        lottoNumber.add(random.nextInt(45));
       }
       waiting = '✨ Jackpot! ✨';
       imageUrl = 'https://post-phinf.pstatic.net/MjAyMTA4MTZfMTQ2/MDAxNjI5MDkzNzQyMTcy.jNZi0JM9P7ULkK6c9Uheq-m2yg5axebvD7_9QFBliEgg.UHrfL5tayXWi9EXSGQIOUEP5hfk4K91SWFWRkUjS-Kcg.PNG/20210816_145436.png?type=w1200';
