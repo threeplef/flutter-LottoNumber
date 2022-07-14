@@ -15,6 +15,13 @@ class _LottoNumberState extends State<LottoNumber> {
   String imageUrl = 'https://img.extmovie.com/files/attach/images/135/723/810/078/6aed427bb7947ecefebab48d74483801.gif';
 
   @override
+  void initState() {
+    super.initState();
+
+    showIntro();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -47,7 +54,7 @@ class _LottoNumberState extends State<LottoNumber> {
                 const SizedBox(height: 20),
                 Text(waiting, style: const TextStyle(fontSize: 20)),
                 const SizedBox(height: 20),
-                Image.network(imageUrl, width: 300, height: 150)
+                Image.network(imageUrl, width: 300, height: 180)
               ],
             ),
             Padding(
@@ -65,6 +72,14 @@ class _LottoNumberState extends State<LottoNumber> {
         ),
       ),
     );
+  }
+
+  Future showIntro() async {
+    setState(() {
+      isLoading = false;
+      waiting = '로또 당첨이다';
+      imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3XLHaxL-WE-Z_6r3HJ7I67p93tDdsFo_9tg&usqp=CAU';
+    });
   }
 
   Future showLoading() async {
