@@ -11,40 +11,54 @@ class LottoNumber extends StatefulWidget {
 
 class _LottoNumberState extends State<LottoNumber> {
   var rnd = Random();
-  List<int> randomnumber = <int>[] ;
+  List<int> lottonumber = <int>[];
+  String waiting = '두구두구';
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('복권 번호 추첨기'),
+        backgroundColor: Colors.lightGreen,
+        title: const Center(
+          child: Text('LOTTO',
+              style: TextStyle(fontWeight: FontWeight.bold)),
+        ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              '행운의 번호 🍀',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
+            const Padding(
+              padding: EdgeInsets.only(bottom: 30.0),
+              child: Text(
+                '🍀',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 50,
+                ),
               ),
             ),
             Column(
               children: [
-                if (isLoading)
+                if (isLoading && waiting == '두구두구')
                   const CircularProgressIndicator()
                 else
-                  Text('$randomnumber')
+                  Text('$lottonumber', style: const TextStyle(fontSize: 20)),
+                  const SizedBox(height: 20),
+                  Text(waiting, style: const TextStyle(fontSize: 20))
               ],
             ),
-            ElevatedButton(
-              onPressed: () {
-                showLottoNumber();
-                showLoading();
-              },
-              child: Text('번호 추첨'),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  showLottoNumber();
+                  showLoading();
+                },
+                style: ElevatedButton.styleFrom(primary: Colors.green),
+                child: const Text('행운의 번호 추첨', style: TextStyle(fontSize: 16)),
+              ),
             ),
           ],
         ),
@@ -55,6 +69,7 @@ class _LottoNumberState extends State<LottoNumber> {
   void showLottoNumber() async {
     setState(() {
       isLoading = true;
+      waiting = '두구두구';
     });
   }
 
@@ -62,11 +77,12 @@ class _LottoNumberState extends State<LottoNumber> {
     await Future.delayed(const Duration(seconds: 3));
     setState(() {
       isLoading = false;
-      randomnumber.clear();
+      lottonumber.clear();
       var rng = Random();
       for (var i = 0; i < 6; i++) {
-        randomnumber.add(rng.nextInt(45));
+        lottonumber.add(rng.nextInt(45));
       }
+      waiting = '✨ Jackpot! ✨';
     });
   }
 }
