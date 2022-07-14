@@ -11,9 +11,10 @@ class LottoNumber extends StatefulWidget {
 
 class _LottoNumberState extends State<LottoNumber> {
   var rnd = Random();
-  List<int> lottonumber = <int>[];
+  List<int> lottoNumber = <int>[];
   String waiting = '두구두구';
   bool isLoading = false;
+  String imageUrl = 'https://img.extmovie.com/files/attach/images/135/723/810/078/6aed427bb7947ecefebab48d74483801.gif';
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +45,11 @@ class _LottoNumberState extends State<LottoNumber> {
                 if (isLoading && waiting == '두구두구')
                   const CircularProgressIndicator()
                 else
-                  Text('$lottonumber', style: const TextStyle(fontSize: 20)),
+                  Text('$lottoNumber', style: const TextStyle(fontSize: 20)),
                   const SizedBox(height: 20),
-                  Text(waiting, style: const TextStyle(fontSize: 20))
+                  Text(waiting, style: const TextStyle(fontSize: 20)),
+                  const SizedBox(height: 20),
+                  Image.network(imageUrl, width: 300, height: 150)
               ],
             ),
             Padding(
@@ -66,23 +69,25 @@ class _LottoNumberState extends State<LottoNumber> {
     );
   }
 
-  void showLottoNumber() async {
+  void showLoading() async {
     setState(() {
       isLoading = true;
       waiting = '두구두구';
+      imageUrl = 'https://img.extmovie.com/files/attach/images/135/723/810/078/6aed427bb7947ecefebab48d74483801.gif';
     });
   }
 
-  Future showLoading() async {
+  Future showLottoNumber() async {
     await Future.delayed(const Duration(seconds: 3));
     setState(() {
       isLoading = false;
-      lottonumber.clear();
+      lottoNumber.clear();
       var rng = Random();
       for (var i = 0; i < 6; i++) {
-        lottonumber.add(rng.nextInt(45));
+        lottoNumber.add(rng.nextInt(45));
       }
       waiting = '✨ Jackpot! ✨';
+      imageUrl = 'https://post-phinf.pstatic.net/MjAyMTA4MTZfMTQ2/MDAxNjI5MDkzNzQyMTcy.jNZi0JM9P7ULkK6c9Uheq-m2yg5axebvD7_9QFBliEgg.UHrfL5tayXWi9EXSGQIOUEP5hfk4K91SWFWRkUjS-Kcg.PNG/20210816_145436.png?type=w1200';
     });
   }
 }
